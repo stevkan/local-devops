@@ -1,0 +1,97 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+#headerTitle {
+  text-align: center;
+  color: white;
+}
+
+#data .header {
+  background-color: lightgray;
+  color: black;
+}
+
+#data td,
+#data th {
+  border: 1px solid white;
+}
+
+#data tr:nth-child(even) {
+  background-color: #353333;
+}
+
+#data tr:nth-child(odd) {
+  background-color: #525050;
+}
+
+#data tr.selected {
+  background-color: #6852bd !important;
+}
+
+#data tr:hover {
+  background-color: #9980ff;
+}
+
+a {
+  color: white;
+}
+
+#data select,
+#data select option,
+#data select option>* {
+  background-color: #181818;
+  color: white;
+}
+
+#data select.to-do {
+  background-color: darkred;
+  color: white;
+}
+
+#data select.investigating {
+  background-color: orange;
+  color: black;
+}
+
+#data select.waiting-on-internal-task {
+  background-color: yellow;
+  color: black;
+}
+
+#data select.waiting-on-customer {
+  background-color: blue;
+  color: white;
+}
+
+#data select.done {
+  background-color: green;
+  color: white
+}
+
+.columnSelector:hover {
+  border-right: 2px solid #00000f;
+}
+
+.unsaved {
+  background-color: #6852bd !important;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #353333;
+  border: 1px solid #888;
+}
+
+#closeMergeModal,
+#closeSettingsModal {
+  color: white;
+}
+
+#mergeModalIframe {
+  color: white;
+}

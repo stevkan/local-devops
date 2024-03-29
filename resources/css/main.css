@@ -1,0 +1,232 @@
+body {
+  /* background-color: black;
+  color: white; */
+  overflow: hidden;
+  margin: 12em 3em 0px 3em !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.settingsContainer {
+  position: absolute;
+  top: 1.5em;
+  right: 1.5em;
+}
+
+#bodyHeaderContainer {
+  position: fixed;
+  top: 0;
+  /* width: 100%; */
+  z-index: 1; /* This ensures that the div stays on top of the other content */
+  margin: 3em 3em 0 3em;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 25em;
+  margin: 0.5em 0 0 0;
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 25em;
+  margin: 0 0 0.5em 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+.container button {
+  margin-top: 0.75em;
+}
+
+#filter {
+  margin-top: 0.75em;
+  width: 100%;
+}
+
+#data {
+  border-collapse: collapse;
+  margin: 0em 1em 15em 1em;
+  overflow: auto;
+  overflow-x: scroll;
+  display: inline-flex;
+  table-layout: fixed;
+  height: 100%;
+  width: fit-content;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#data .header {
+  /* background-color: lightgray;
+  color: black; */
+  max-height: 40px;
+}
+
+#data td,
+#data th {
+  /* border: 1px solid white; */
+  padding: 8px;
+  white-space: normal;
+  /* Allow the text to wrap */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  height: 30px;
+}
+
+.comfy-mode {
+  padding: 2px !important;
+}
+
+#data th::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  /* Adjust the width as needed */
+  height: 100%;
+  cursor: col-resize;
+  /* Change the cursor style when hovering over the border */
+}
+
+#data tr:nth-child(even) {
+  /* background-color: #353333; */
+  width: 5%;
+}
+
+#data tr:nth-child(odd) {
+  /* background-color: #525050; */
+  width: 5%;
+}
+
+#data tr.selected {
+  /* background-color: #6852bd !important; */
+}
+
+#data tr:hover {
+  /* background-color: #9980ff; */
+}
+
+a {
+  /* color: white; */
+  text-decoration: underline;
+}
+
+#data select,
+#data select option,
+#data select option>* {
+  /* background-color: #181818;
+  color: white; */
+}
+
+#data select.to-do {
+  /* background-color: darkred;
+  color: white; */
+}
+
+#data select.investigating {
+  /* background-color: orange;
+  color: black; */
+}
+
+#data select.waiting-on-internal-task {
+  /* background-color: yellow;
+  color: black; */
+}
+
+#data select.waiting-on-customer {
+  /* background-color: blue;
+  color: white; */
+}
+
+#data select.done {
+  /* background-color: green;
+  color: white */
+}
+
+.columnSelector:hover {
+  /* border-right: 2px solid #00000f; */
+}
+
+.done-row {
+  display: none;
+}
+
+.unsaved {
+  /* background-color: #6852bd !important; */
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /* background-color: rgba(0, 0, 0, 0.4); */
+}
+
+#mergeModal,
+#settingsModal {
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  /* background-color: #353333; */
+  margin: 15% auto;
+  padding: 0 20px 20px 20px;
+  /* border: 1px solid #888; */
+  width: 30em;
+  height: fit-content;
+  height: -moz-fit-content;
+}
+
+#closeMergeModal,
+#closeSettingsModal {
+  /* color: white; */
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+#mergeModalIframe {
+  /* color: white; */
+  width: 100%;
+  height: 100% !important;
+}
+
+#mergeIframeContainer,
+#settingsIframeContainer {
+  height: auto;
+}
+
+#mergeHeaderContainer,
+#settingsHeaderContainer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.containerHeader {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-size: x-large;
+}

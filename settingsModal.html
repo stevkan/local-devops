@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <link rel="stylesheet" href="./resources/css/settingsModal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script type='text/javascript' src='./modal/settingsModal.js'></script>
+  <!-- <script type='text/javascript' src='./resources/scripts/variables.js'></script> -->
+</head>
+
+<body id='modalBody'>
+  <div id="iframeInputView">
+    <div class='iframeBtnContainer'>
+      <span>Comfy mode</span>
+      <button id='comfyButton' type='button' onclick="SettingsModal.toggleComfy()">Toggle setting</button>
+    </div>
+    <div class='iframeBtnContainer'>
+      <span>Set Light/Dark/Custom Theme</span>
+      <button id='themeButton' type='button' onclick="SettingsModal.toggleTheme()">Toggle theme</button>
+    </div>
+  </div>
+  <div id='iframeMergeBtnView'>
+    <div class='iframeBtnContainer'>
+      <span>Some new option</span>
+      <button id='comfyButton' type='button' onclick="" disabled>Click Me</button>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+body {
+  background-color: #e6e4e9;
+  color: black;
+}
+
+#headerTitle {
+  text-align: center;
+  color: black;
+}
+
+#data .header {
+  background-color: #797979;
+  color: white;
+}
+
+#data td,
+#data th {
+  border: 1px solid black;
+}
+
+#data tr:nth-child(even) {
+  background-color: #c1c1c1;
+}
+
+#data tr:nth-child(odd) {
+  background-color: #d7d7d7;
+}
+
+#data tr.selected {
+  background-color: #9b92c2 !important;
+}
+
+#data tr:hover {
+  background-color: #b7b0d6;
+}
+
+a {
+  color: black;
+}
+
+#data select,
+#data select option,
+#data select option>* {
+  background-color: #181818;
+  color: white;
+}
+
+#data select.to-do {
+  background-color: darkred;
+  color: white;
+}
+
+#data select.investigating {
+  background-color: orange;
+  color: white;
+}
+
+#data select.waiting-on-internal-task {
+  background-color: yellow;
+  color: white;
+}
+
+#data select.waiting-on-customer {
+  background-color: blue;
+  color: white;
+}
+
+#data select.done {
+  background-color: green;
+  color: white
+}
+
+.columnSelector:hover {
+  border-right: 2px solid #00000f;
+}
+
+.unsaved {
+  background-color: #6852bd !important;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #353333;
+  border: 1px solid #888;
+}
+
+#closeMergeModal,
+#closeSettingsModal {
+  color: white;
+}
+
+#mergeModalIframe {
+  color: white;
+}

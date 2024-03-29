@@ -1,0 +1,66 @@
+#mergeModalIframe {
+  color: white;
+  width: 100%;
+  height: 100% !important;
+}
+
+#modalBody {
+  color: white;
+  background-color: #525050;
+  display: flex;
+  flex-direction: column;
+  /* margin: 40px; */
+  justify-content: center;
+  overflow: hidden;
+}
+
+#iframeInputView {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+#iframeMergeBtnView {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  max-height: 5em;
+}
+
+.iframeBtnContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em;
+  width: 14em;
+}
+
+.mergeButtonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0.5em;
+  max-height: 21px;
+}
+
+#modalBody span {
+  margin-bottom: 5px;
+}
+
+.iframeBtnContainer input,
+.iframeBtnContainer button {
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+}
+
+#mergeButtonContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+#mergeStatus {
+  margin-bottom: 0px;
+  display: flex;
+  align-items: flex-end;
+}
