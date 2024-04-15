@@ -12,20 +12,20 @@
 </head>
 
 <body id='modalBody'>
-  <div id="iframeInputView">
+  <div id="iframeInputView_Group1">
     <div class='iframeBtnContainer'>
       <span>Comfy mode</span>
-      <button id='comfyButton' type='button' onclick="SettingsModal.toggleComfy()">Toggle setting</button>
+      <button id='comfyButton' type='button' onclick="SettingsModal.toggleComfy()">Enable</button>
     </div>
     <div class='iframeBtnContainer'>
-      <span>Set Light/Dark/Custom Theme</span>
-      <button id='themeButton' type='button' onclick="SettingsModal.toggleTheme()">Toggle theme</button>
+      <span>Set Theme to Light or Dark</span>
+      <button id='themeButton' type='button' onclick="SettingsModal.toggleTheme()">Switch to Dark</button>
     </div>
   </div>
-  <div id='iframeMergeBtnView'>
+  <div id='iframeInputView_Group2'>
     <div class='iframeBtnContainer'>
-      <span>Some new option</span>
-      <button id='comfyButton' type='button' onclick="" disabled>Click Me</button>
+      <span>Hide issues marked as 'Done'</span>
+      <button id='toggleDone' type='button' onclick="SettingsModal.toggleDone()">Disable</button>
     </div>
   </div>
 </body>

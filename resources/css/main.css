@@ -1,10 +1,8 @@
 body {
-  /* background-color: black;
-  color: white; */
   overflow: hidden;
-  margin: 12em 3em 0px 3em !important;
+  margin: 9em 3em 0px 3em !important;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 100vh;
   flex-direction: column;
@@ -42,6 +40,19 @@ body {
   margin: 0 0 0.5em 0;
 }
 
+#issueCount {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 20em;
+  height: 1em;
+}
+
+#issueCount p {
+  margin: 0;
+}
+
 h1 {
   margin: 0;
 }
@@ -62,28 +73,27 @@ h1 {
   overflow-x: scroll;
   display: inline-flex;
   table-layout: fixed;
-  height: 100%;
+  /* height: calc(100vh - 40em); */
   width: fit-content;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: flex-start;
-}
-
-#data .header {
-  /* background-color: lightgray;
-  color: black; */
-  max-height: 40px;
 }
 
 #data td,
 #data th {
-  /* border: 1px solid white; */
   padding: 8px;
   white-space: normal;
-  /* Allow the text to wrap */
   overflow: hidden;
   text-overflow: ellipsis;
   position: relative;
-  height: 30px;
+  height: fit-content;
+  height: -moz-fit-content;
+  vertical-align: middle;
+}
+
+#data .rowSelector {
+  height: 100%;
 }
 
 .comfy-mode {
@@ -91,70 +101,32 @@ h1 {
 }
 
 #data th::after {
-  content: "";
+  /* content: "";
   position: absolute;
   top: 0;
   right: 0;
-  width: 4px;
+  width: 4px; */
   /* Adjust the width as needed */
-  height: 100%;
-  cursor: col-resize;
+  /* height: 100%;
+  cursor: col-resize; */
   /* Change the cursor style when hovering over the border */
 }
 
 #data tr:nth-child(even) {
-  /* background-color: #353333; */
   width: 5%;
 }
 
 #data tr:nth-child(odd) {
-  /* background-color: #525050; */
   width: 5%;
 }
 
-#data tr.selected {
-  /* background-color: #6852bd !important; */
-}
-
-#data tr:hover {
-  /* background-color: #9980ff; */
-}
-
 a {
-  /* color: white; */
   text-decoration: underline;
 }
 
-#data select,
-#data select option,
-#data select option>* {
-  /* background-color: #181818;
-  color: white; */
-}
-
-#data select.to-do {
-  /* background-color: darkred;
-  color: white; */
-}
-
-#data select.investigating {
-  /* background-color: orange;
-  color: black; */
-}
-
-#data select.waiting-on-internal-task {
-  /* background-color: yellow;
-  color: black; */
-}
-
-#data select.waiting-on-customer {
-  /* background-color: blue;
-  color: white; */
-}
-
-#data select.done {
-  /* background-color: green;
-  color: white */
+.columnSelector {
+  max-height: 40px;
+  width: 100%;
 }
 
 .columnSelector:hover {
@@ -165,8 +137,29 @@ a {
   display: none;
 }
 
-.unsaved {
-  /* background-color: #6852bd !important; */
+#data .col-1 {
+  width: 11em;
+  min-width: 11em;
+}
+
+#data .col-2 {
+  width: 3em;
+  min-width: 3em;
+}
+
+#data .col-3 {
+  width: 6em;
+  min-width: 6em;
+}
+
+#data .col-4 {
+  width: 11em;
+  min-width: 7em;
+}
+
+#data .col-5 {
+  width: 45em;
+  min-width: 23em;
 }
 
 .modal {
@@ -178,7 +171,6 @@ a {
   width: 100%;
   height: 100%;
   overflow: auto;
-  /* background-color: rgba(0, 0, 0, 0.4); */
 }
 
 #mergeModal,
@@ -188,7 +180,6 @@ a {
 }
 
 .modal-content {
-  /* background-color: #353333; */
   margin: 15% auto;
   padding: 0 20px 20px 20px;
   /* border: 1px solid #888; */
@@ -199,14 +190,12 @@ a {
 
 #closeMergeModal,
 #closeSettingsModal {
-  /* color: white; */
   position: absolute;
   right: 0;
   cursor: pointer;
 }
 
 #mergeModalIframe {
-  /* color: white; */
   width: 100%;
   height: 100% !important;
 }
@@ -230,3 +219,21 @@ a {
   justify-content: center;
   font-size: x-large;
 }
+
+.datatable-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+}
+
+/* .sortable th.indicator-left::before {
+  content: '' !important;
+}
+.sortable th.indicator-left::after {
+  position: relative !important;
+  top: 0;
+  left: 0;
+  margin-right: 3px;
+  content: '▸' !important;
+  cursor: pointer;
+} */

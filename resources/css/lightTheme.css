@@ -1,5 +1,5 @@
 body {
-  background-color: #e6e4e9;
+  background-color: white;
   color: black;
 }
 
@@ -8,14 +8,19 @@ body {
   color: black;
 }
 
-#data .header {
-  background-color: #797979;
-  color: white;
+.filterContainer {
+  color: black !important;
+}
+
+#data .columnSelector {
+  background-color: rgb(146, 146, 146) !important;
+  color: black;
 }
 
 #data td,
 #data th {
   border: 1px solid black;
+  color: black;
 }
 
 #data tr:nth-child(even) {
@@ -51,12 +56,12 @@ a {
 }
 
 #data select.investigating {
-  background-color: orange;
+  background-color: #fdcc72;
   color: white;
 }
 
 #data select.waiting-on-internal-task {
-  background-color: yellow;
+  background-color: #c3c368;
   color: white;
 }
 
@@ -70,12 +75,18 @@ a {
   color: white
 }
 
-.columnSelector:hover {
-  border-right: 2px solid #00000f;
+#data select.community {
+  background-color: darkslateblue;
+  color: white
+}
+
+#data select.forward {
+  background-color: darkblue;
+  color: white
 }
 
 .unsaved {
-  background-color: #6852bd !important;
+  background-color: #6a9eb3 !important;
 }
 
 .modal {

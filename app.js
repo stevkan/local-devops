@@ -13,9 +13,9 @@ require('dotenv').config({ path: ENV_FILE });
 
 app.use(
   cors({
-    origin: ['http://localhost:6550', 'https://webchats.ngrok.io'],
+    origin: ['http://localhost:6550', 'https://webchats.ngrok.io', 'http://127.0.0.1:5500'],
     credentials: true,
-  })
+  }) 
 );
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -27,20 +27,22 @@ app.use(
 );
 
 app.post('/file', async (req, res) => {
-  const { filePath } = req.body;
-  // Read JSON file from file
-  const file = await fs.readFile(`${process.env.FILEPATH}${filePath}`, { encoding: 'utf-8' });
-
   try {
-    if (file.length > 0) {
+    const { filePath } = req.body;
+    // Read JSON file from file
+    const file = await fs.readFile(`${process.env.FILEPATH}${filePath}`, { encoding: 'utf-8' });
+    if (file.length > 2) {
       res.status(200).send(JSON.stringify(file));
     }
-    if (file.length === 0) {
+    if (file.length === 2) {
       res.status(204).send('File meta data is empty');
     }
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error retrieving data');
+    if (err.code === 'ENOENT') {
+      res.status(404).send(`File not found: ${err}`);
+    } else {
+      res.status(err.statusCode).send(err);
+    }
   }
 });
 

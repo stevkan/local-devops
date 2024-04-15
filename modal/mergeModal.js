@@ -23,9 +23,6 @@ const MergeModal = (function() {
       console.log('Added remaining entry from CSV 2');
     });
 
-    // Remove the header from the first CSV file
-    parsedDataToCSV.shift();
-
     // Merge the CSV files
     const mergedData = parsedDataFromCSV.concat(parsedDataToCSV);
     
