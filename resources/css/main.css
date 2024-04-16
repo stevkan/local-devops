@@ -1,6 +1,7 @@
 body {
+  position: fixed;
   overflow: hidden;
-  margin: 9em 3em 0px 3em !important;
+  /* margin: 9em 3em 0px 3em !important; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -10,8 +11,8 @@ body {
 
 .settingsContainer {
   position: absolute;
-  top: 1.5em;
-  right: 1.5em;
+  top: 1em;
+  right: 1em;
 }
 
 #headContainer {

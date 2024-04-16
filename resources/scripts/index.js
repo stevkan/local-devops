@@ -106,7 +106,7 @@ const saveData = async () => {
       row.classList.remove( 'unsaved' );
     } );
     alert( 'Data saved successfully!' );
-    loadButton.click();
+    await loadButton.click();
   } else {
     alert( 'Error saving data' );
   }
