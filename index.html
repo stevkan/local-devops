@@ -17,20 +17,20 @@
   <div class="settingsContainer">
     <button id='openSettingsBtn' type='button'>Settings</button>
   </div>
-  <div id='bodyHeaderContainer'>
+  <div id='headContainer'>
     <div class="headerContainer">
       <h1 id="headerTitle">Local DevOps</h1>
     </div>
-    <div class="headerContainer">
+    <div class="buttonContainer">
       <button id='loadButton' type='button'>Load/Reload</button>
       <button id='saveButton' type='button' onclick="saveData()">Save Data</button>
       <button id="openImportCsvBtn" type='button'>Import CSV</button>
     </div>
-    <div class='headerContainer'>
+    <div class='issueCountContainer'>
       <div id='issueCount'>
-        <p id='icmCount' hidden>IcM: 1</p>
-        <p id='ghCount' hidden>GitHub: 20</p>
-        <p id='soCount' hidden>StackOverflow: 30</p>
+        <p id='icmCount' hidden></p>
+        <p id='ghCount' hidden></p>
+        <p id='soCount' hidden></p>
       </div>
     </div>
     <div id="mergeModal" class="modal">
@@ -51,9 +51,9 @@
         <div id="settingsIframeContainer"></div>
       </div>
     </div>
-  </div>
-  <div class="filterContainer">
-    <input type="text" id="filter" placeholder="Filter table...">
+    <div class="filterContainer">
+      <input type="text" id="filter" placeholder="Filter table...">
+    </div>
   </div>
   <table id="data"></table>
   <script type='text/javascript' src='./resources/scripts/buttons.js'></script>
