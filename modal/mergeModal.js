@@ -13,8 +13,11 @@ const MergeModal = (function() {
     const parsedDataFromCSV = Papa.parse(dataFromCSV, {header: true}).data;
     const parsedDataToCSV = Papa.parse(dataToCSV, {header: true}).data;
 
+    
     parsedDataToCSV.forEach(element2 => {
+      console.log('Parsed Data To CSV', JSON.stringify(element2, null, 2));
       parsedDataFromCSV.forEach(element1 => {
+        console.log('Parsed Data From CSV', JSON.stringify(element1, null, 2));
         if (element1['ID'] === element2['ID']) {
           parsedDataFromCSV.pop(element1);
           console.log('Removed duplicate entry');
@@ -46,7 +49,19 @@ const MergeModal = (function() {
     const response = await fetch( 'http://localhost:6550/merge', requestOptions );
     if ( response.ok ) {
       const mergeStatus = document.getElementById('mergeStatus');
-      mergeStatus.innerHTML = '...data merged';
+      let message = '';
+      let mergeCount = 0;
+      const interval = setInterval(() => {
+        if (mergeCount <= 2) {
+          message = message + '.';
+          mergeStatus.innerHTML = `${message}`;
+        }
+        if (mergeCount === 3) {
+          mergeStatus.innerHTML = `${message}merged`;
+          clearInterval(interval);
+        }
+        mergeCount++;
+      }, 1000);
     } else {
       alert( 'Error saving data' );
     }

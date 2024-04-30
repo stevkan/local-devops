@@ -23,6 +23,32 @@ body {
   color: black;
 }
 
+#data td {
+  border-top: none;
+}
+
+#data thead::-webkit-scrollbar {
+  background-color: rgb(146, 146, 146);
+  border: 1px solid black;
+  border-left-style: none; /* Color of the track (area behind the scroll thumb) */
+}
+
+#data tbody::-webkit-scrollbar {
+  background-color: rgb(146, 146, 146);
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  border-top: none;
+  border-left: none;
+  /* border-left-style: none; Color of the track (area behind the scroll thumb) */
+}
+
+#data tbody::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid black;
+  border-left: none;
+}
+
 #data tr:nth-child(even) {
   background-color: #c1c1c1;
 }

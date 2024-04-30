@@ -28,13 +28,16 @@ function reorderTableRows(tdSortedArray, selectSortedArray) {
   // Sort each group by the .col-1 (ID) value in descending order
   Object.values(groupedRows).forEach(group => {
     group.sort((a, b) => {
-      if (a.querySelector('.col-1 select') !== null) {
-        // const aId = parseInt(a.querySelector('.col-1 input').value, 10);
-        // const bId = parseInt(b.querySelector('.col-1 input').value, 10);
-        const aValue = selectSortedArray.indexOf(a.querySelector('.col-1 select').value);
-        const bValue = selectSortedArray.indexOf(b.querySelector('.col-1 select').value);
+      // Use if secondary columns numbers and are not select fields
+      const aValue = parseInt(a.querySelector('.col-2').innerText, 10);
+      const bValue = parseInt(b.querySelector('.col-2').innerText, 10);
+      
+      // // Use if secondary columns are select fields
+      // if (a.querySelector('.col-1 select') !== null) {
+      //   const aValue = selectSortedArray.indexOf(a.querySelector('.col-1 select').value);
+      //   const bValue = selectSortedArray.indexOf(b.querySelector('.col-1 select').value);
+      // }
         return aValue - bValue; // Descending order
-      }
     });
   });
 
@@ -91,21 +94,31 @@ const alphanumericSort = (a, b) => {
 };
 
 const setDefaultOrder = () => {
-  const tdArray = document.querySelectorAll('.rowSelector .col-4');
-  const arrayOfTdValues = [];
-  tdArray.forEach(val => arrayOfTdValues.push(val.innerText));
+  const primaryCol = document.querySelectorAll('.rowSelector .col-4');
+  const primaryColValues = [];
+  primaryCol.forEach(val => primaryColValues.push(val.innerText));
 
-  const selectedArray = document.querySelectorAll('.rowSelector .col-1 select');
-  const arrayOfSelectValues = [];
-  selectedArray.forEach(select => arrayOfSelectValues.push(select.value));
+  const secondaryCol = document.querySelectorAll('.rowSelector .col-2');
+  const secondaryColValues = [];
+  secondaryCol.forEach(val => secondaryColValues.push(val.innerText));
 
-  arrayOfTdValues.sort(alphanumericSort);
-  arrayOfSelectValues.sort(alphanumericSort);
-  reorderTableRows(arrayOfTdValues, arrayOfSelectValues);
+  // // Use if column has select fields
+  // const secondaryCol = document.querySelectorAll('.rowSelector .col-1 select');
+  // const secondaryCoValues = [];
+  // secondaryCol.forEach(select => secondaryCoValues.push(select.value));
+
+  primaryColValues.sort(alphanumericSort);
+  secondaryColValues.sort(alphanumericSort);
+  reorderTableRows(primaryColValues, secondaryColValues);
 };
 
 const loadButton = document.getElementById( 'loadButton' );
-loadButton.addEventListener( 'click', async () => {
+loadButton.addEventListener( 'click', async (forceDone) => {
+  console.log('FORCE DONE ', SettingsModal.showDone, forceDone.returnValue)
+  if (forceDone.returnValue === true) {
+    SettingsModal.showDone = forceDone.returnValue;
+  }
+  console.log('SHOW DONE ', SettingsModal.showDone)
   await openFileBrowser()
     .then( ( res ) => {
       const interval = setInterval( async () => {
@@ -136,6 +149,13 @@ loadButton.addEventListener( 'click', async () => {
       }, 100 );
     } );
 } );
+
+// const saveButton = document.querySelector( '#saveButton' );
+// saveButton.addEventListener('click', () => {
+//   setTimeout(async () => {
+//     await loadButton.click();
+//   }, 500);
+// });
 
 const mergeModal = document.getElementById( 'mergeModal' );
 const openImportCsvBtn = document.getElementById( 'openImportCsvBtn' );

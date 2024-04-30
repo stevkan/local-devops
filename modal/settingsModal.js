@@ -3,7 +3,7 @@ const SettingsModal = (function() {
   
   let publicAPIs = {
     showDone: true,
-    table: null
+    table: null,
   };
 
   publicAPIs.onload = () => {
@@ -22,6 +22,10 @@ const SettingsModal = (function() {
   publicAPIs.toggleTheme = () => {
     window.parent.toggleThemeSetting(); // Call a function in the parent window
   };
+
+  publicAPIs.onShowDoneChange = () => {
+    
+  }
   
   publicAPIs.toggleDone = () => {
     publicAPIs.table = window.parent.ParentProperties.table;
@@ -30,6 +34,8 @@ const SettingsModal = (function() {
     publicAPIs.table.querySelectorAll( 'select option' ).forEach( option => {
       if ( option.selected ) {
         switch ( option.value ) {
+          case 'Community':
+          case 'Forward':
           case 'Done':
             const row = option.parentNode.parentNode.parentNode;
             row.style.display = publicAPIs.showDone ? 'none' : 'table-row';

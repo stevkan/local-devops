@@ -100,6 +100,7 @@ const render = () => {
     tbodyRow.classList.add( 'rowSelector' );
     tbody.appendChild( tbodyRow );
     if ( row.ID === undefined || row.ID === null || row.ID === '' ) return;
+
     headers.forEach( headerText => {
       const bodyCell = document.createElement( 'td' );
       tbodyRow.appendChild( bodyCell );
@@ -118,10 +119,12 @@ const render = () => {
           <option ${ row.State === 'Forward' ? 'selected' : '' } class='forward' value='Forward'>Forward</option>
         `;
         select.value = row[ headerText ];
-        select.onchange = () => {
+        select.onchange = (e) => {
           row[ headerText ] = select.value;
           select.parentNode.parentNode.classList.add( 'unsaved' );
           table.dispatchEvent( onRendered );
+            const saveButton = document.querySelector( '#saveButton' );
+            saveButton.click();
         };
         bodyCell.classList.add( 'col-1' );
         bodyCell.appendChild( select );
@@ -167,7 +170,7 @@ const render = () => {
       }
     } );
   } );
-
+  
   table.addEventListener( 'onRendered', ( e ) => {
     document.querySelectorAll( 'select option' ).forEach( option => {
 
@@ -210,26 +213,26 @@ const render = () => {
     } );
   } );
 
-
   table.dispatchEvent( onRendered );
   document.addEventListener( 'click', ( event ) => {
+    console.log(event.target);
     if ( event.target.localName === 'td' ) {
       const target = event.target.closest( 'tr' );
       const children = table.tBodies[ 0 ].children;
       for ( child of children ) {
         if ( child === target ) {
-          if ( selectedRow ) {
-            selectedRow.classList.remove( 'selected' );
+          if ( rowSelected !== null ) {
+            rowSelected.classList.remove( 'selected' );
           }
-          selectedRow = target;
-          selectedRow.classList.add( 'selected' );
+          rowSelected = target;
+          rowSelected.classList.add( 'selected' );
         }
       };
     }
     else {
-      if ( selectedRow ) {
-        selectedRow.classList.remove( 'selected' );
-        selectedRow = null;
+      if ( rowSelected !== null ) {
+        rowSelected.classList.remove( 'selected' );
+        rowSelected = null;
       }
     }
   } );

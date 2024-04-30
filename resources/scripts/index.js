@@ -1,7 +1,7 @@
 let data = [];
 const table = document.querySelector( '#data' );
 let lastOpenedFile = null; // Variable to store the last opened File object
-let selectedRow = null; // Variable to store the selected row for highlighting
+let rowSelected = null; // Variable to store the selected row for highlighting
 const defaultOrder = [ 1, 1, 1 ];
 localStorage.setItem( 'defaultOrder', `[${ defaultOrder }]` );
 let order = Array.from(localStorage.getItem( 'customOrder' )).flat().filter(item => !isNaN(item))
@@ -105,8 +105,8 @@ const saveData = async () => {
     unsavedRows.forEach( row => {
       row.classList.remove( 'unsaved' );
     } );
-    alert( 'Data saved successfully!' );
-    await loadButton.click();
+    // alert( 'Data saved successfully!' );
+    await loadButton.click(true);
   } else {
     alert( 'Error saving data' );
   }
@@ -115,7 +115,7 @@ const saveData = async () => {
 window.onload = async () => {
   toggleComfySetting();
   SettingsModal.onload();
-  loadButton.click();
+  loadButton.click(true);
 };
 
 const issueCount = document.querySelector( '#issueCount');

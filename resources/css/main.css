@@ -1,5 +1,5 @@
 body {
-  position: fixed;
+  /* position: fixed; */
   overflow: hidden;
   /* margin: 9em 3em 0px 3em !important; */
   display: flex;
@@ -67,7 +67,6 @@ h1 {
   border-collapse: collapse;
   margin: 0em 1em 2em 1em;
   overflow: auto;
-  overflow-x: scroll;
   display: inline-flex;
   table-layout: fixed;
   /* height: calc(100vh - 40em); */
@@ -75,6 +74,19 @@ h1 {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+#data thead {
+  overflow-y: scroll;
+  height: 7.5em !important;
+}
+
+#data thead .col-5 {
+  border-right-style: none;
+}
+
+#data tbody {
+  overflow-y: scroll;
 }
 
 #data td,
