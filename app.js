@@ -26,6 +26,14 @@ app.use(
   })
 );
 
+/**
+ * Handles a POST request to the '/file' endpoint, which reads a JSON file from the file system and sends the contents back to the client.
+ *
+ * @param {Object} req - The HTTP request object.
+ * @param {string} req.body.filePath - The path to the JSON file to be read.
+ * @param {Object} res - The HTTP response object.
+ * @returns {Promise<void>} - A Promise that resolves when the response has been sent.
+ */
 app.post('/file', async (req, res) => {
   try {
     const { filePath } = req.body;
@@ -46,6 +54,16 @@ app.post('/file', async (req, res) => {
   }
 });
 
+/**
+ * Saves CSV data to a file on the server.
+ *
+ * @param {Object} req - The HTTP request object.
+ * @param {Object} req.body - The request body containing the file path and data to save.
+ * @param {string} req.body.filePath - The path to the file to save the CSV data to.
+ * @param {any[]} req.body.data - The data to be converted to CSV and saved.
+ * @param {Object} res - The HTTP response object.
+ * @returns {Promise<void>} - A promise that resolves when the file has been saved.
+ */
 app.post('/save', async (req, res) => {
   const { filePath, data } = req.body;
   // TODO: Validate data before using it
@@ -63,6 +81,15 @@ app.post('/save', async (req, res) => {
   }
 });
 
+/**
+ * Handles a POST request to the '/merge' endpoint. This endpoint expects a request body with a 'fileName' and 'data' property. The 'data' property
+ * should be an array of objects that will be converted to a CSV file and saved to the file system. The current CSV file is backed up before the new data is saved.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {string} req.body.fileName - The name of the CSV file to be saved.
+ * @param {Object[]} req.body.data - The data to be converted to a CSV file.
+ * @returns {Promise<void>} - A Promise that resolves when the CSV file has been saved.
+ */
 app.post('/merge', async (req, res) => {
   const { fileName, data } = req.body;
   // TODO: Validate data before using it

@@ -1,7 +1,5 @@
 body {
-  /* position: fixed; */
   overflow: hidden;
-  /* margin: 9em 3em 0px 3em !important; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -69,7 +67,6 @@ h1 {
   overflow: auto;
   display: inline-flex;
   table-layout: fixed;
-  /* height: calc(100vh - 40em); */
   width: fit-content;
   flex-direction: column;
   justify-content: flex-start;
@@ -78,11 +75,13 @@ h1 {
 
 #data thead {
   overflow-y: scroll;
-  height: 7.5em !important;
+  height: 4.5em !important;
+  min-height: 2.25em !important;
 }
 
 #data thead .col-5 {
   border-right-style: none;
+  width: 45.1em;
 }
 
 #data tbody {
@@ -109,17 +108,15 @@ h1 {
   padding: 2px !important;
 }
 
-#data th::after {
-  /* content: "";
+/* #data th::after {
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
-  width: 4px; */
-  /* Adjust the width as needed */
-  /* height: 100%;
-  cursor: col-resize; */
-  /* Change the cursor style when hovering over the border */
-}
+  width: 4px;
+  height: 100%;
+  cursor: col-resize;
+} */
 
 #data tr:nth-child(even) {
   width: 5%;
@@ -138,9 +135,9 @@ a {
   width: 100%;
 }
 
-.columnSelector:hover {
-  /* border-right: 2px solid #00000f; */
-}
+/* .columnSelector:hover {
+  border-right: 2px solid #00000f;
+} */
 
 .done-row {
   display: none;
@@ -191,7 +188,6 @@ a {
 .modal-content {
   margin: 15% auto;
   padding: 0 20px 20px 20px;
-  /* border: 1px solid #888; */
   width: 30em;
   height: fit-content;
   height: -moz-fit-content;
@@ -234,15 +230,3 @@ a {
   flex-direction: column;
   height: inherit;
 }
-
-/* .sortable th.indicator-left::before {
-  content: '' !important;
-}
-.sortable th.indicator-left::after {
-  position: relative !important;
-  top: 0;
-  left: 0;
-  margin-right: 3px;
-  content: '▸' !important;
-  cursor: pointer;
-} */

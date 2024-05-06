@@ -3,6 +3,19 @@ const repositories = [ 'botbuilder-dotnet', 'botbuilder-js', 'botbuilder-python'
 const filter = document.getElementById( 'filter' );
 // Add event listener 
 filter.addEventListener( 'keyup', filterRows );
+
+
+/**
+ * Filters the rows in a table based on the value entered in the filter input.
+ * 
+ * This function is called whenever the 'keyup' event is triggered on the filter input.
+ * It loops through all the rows in the table and checks if the text content of each cell
+ * contains the filter value. If a row has at least one cell that contains the filter value,
+ * the row is displayed, otherwise it is hidden.
+ * 
+ * If the filter value is empty, the 'loadButton' is clicked to load the full table.
+ * @returns {Promise<void>} A promise that resolves once the filtering is complete.
+ */
 async function filterRows () {
   // Get value to filter by
   const value = filter.value.toLowerCase();

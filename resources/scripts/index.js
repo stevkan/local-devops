@@ -12,6 +12,11 @@ localStorage.setItem( 'theme', theme );
 let themeIndex = [ 'lightTheme.css', 'darkTheme.css' ].indexOf( theme );
 localStorage.setItem( 'themeIndex', themeIndex );
 
+/**
+ * Provides a public API for accessing the `table` property.
+ * @namespace ParentProperties
+ * @property {object} table - The table object.
+ */
 window.ParentProperties = (function () {
   'use strict;'
 
@@ -23,6 +28,11 @@ window.ParentProperties = (function () {
 })();
 
 const reader = new FileReader();
+
+/**
+ * Opens a file browser dialog and stores the selected file path in localStorage.
+ * This function is used to allow the user to select a file to be processed by the application.
+ */
 const openFileBrowser = async () => {
   const input = localStorage.getItem( 'filepath' );
   const fileChooser = document.createElement( 'input' );
@@ -40,6 +50,18 @@ const openFileBrowser = async () => {
   }
 };
 
+/**
+ * Attempts to open the last opened file and render its contents.
+ * 
+ * If a last opened file is available in localStorage, this function will:
+ * 1. Read the file contents as text using the provided `reader` object.
+ * 2. Parse the CSV data using the `Papa.parse` library.
+ * 3. Store the parsed data in the `data` variable.
+ * 4. Call the `render()` function to display the data.
+ * 5. Call the `setDefaultOrder()` function to set the initial sort order.
+ * 
+ * If no last opened file is available, the function will return `false`.
+ */
 const openLastFile = () => {
   if ( lastOpenedFile ) {
     reader.onload = function ( event ) {
@@ -54,6 +76,11 @@ const openLastFile = () => {
   }
 };
 
+/**
+ * Asynchronously fetches data from the server using the provided file path.
+ * 
+ * @returns {Promise<Response|string>} - A Promise that resolves to the server response or the response text if the request was successful, or the response object if the request failed.
+ */
 const getData = async () => {
   const myHeaders = new Headers();
   myHeaders.append( "Content-Type", "application/json" );
@@ -83,6 +110,15 @@ const getData = async () => {
   }
 };
 
+/**
+ * Saves the current data to the server.
+ * 
+ * This function creates a JSON payload with the current file path and data, and sends it to the server
+ * using a POST request. If the save is successful, it removes the 'unsaved' class from any rows that
+ * were previously marked as unsaved, and then clicks the loadButton to refresh the data.
+ * 
+ * If the save fails, it displays an error alert.
+ */
 const saveData = async () => {
   const myHeaders = new Headers();
   myHeaders.append( "Content-Type", "application/json" );
@@ -123,6 +159,16 @@ const icmCountElement = document.getElementById( 'icmCount' );
 const ghCountElement = document.getElementById( 'ghCount' );
 const soCountElement = document.getElementById('soCount' );
 
+/**
+ * Listens for the 'onRendered' event on the table element and updates the count of issues for different issue types.
+ * 
+ * This function is responsible for counting the number of issues for each issue type (ICM, GitHub, and StackOverflow) and updating the corresponding count elements on the page.
+ * 
+ * It first waits for the SettingsModal to be toggled as 'done', then iterates through all the rows in the table. For each row, it checks the status of the issue and the issue type,
+ * and increments the corresponding count variable.
+ * 
+ * Finally, it updates the innerHTML of the icmCountElement, ghCountElement, and soCountElement with the calculated counts.
+ */
 table.addEventListener('onRendered', async (e) => {
   await SettingsModal.toggleDone();
 
@@ -131,11 +177,11 @@ table.addEventListener('onRendered', async (e) => {
   let soCount = 0;
   table.querySelectorAll( '.rowSelector' ).forEach( row => {
     if (row.children[0].children[0].value !== 'Done') {
-      if (row.children[3].innerHTML === 'IcM') {
+      if (row.children[3].innerHTML.toLowerCase() === 'icm') {
         icmCount++;
-      } else if (row.children[3].innerHTML.startsWith('BotBuilder') || row.children[3].innerHTML.startsWith('BotFramework')) {
+      } else if (row.children[3].innerHTML.toLowerCase().startsWith('botbuilder') || row.children[3].innerHTML.toLowerCase().startsWith('botframework')) {
         ghCount++;
-      } else if (row.children[3].innerHTML === 'StackOverflow') {
+      } else if (row.children[3].innerHTML.toLowerCase() === 'stackoverflow') {
         soCount++;
       };
     }
@@ -145,12 +191,23 @@ table.addEventListener('onRendered', async (e) => {
   soCountElement.innerHTML = `StackOverflow: ${soCount}`;
 });
 
+/**
+ * Adds event listeners to the `issueCount` element to show and hide the count elements for different issue types (ICM, GitHub, and StackOverflow) on hover.
+ * 
+ * When the `issueCount` element is hovered over, the `icmCountElement`, `ghCountElement`, and `soCountElement` have their `hidden` attribute removed, making them visible.
+ * When the `issueCount` element is no longer hovered over, the `icmCountElement`, `ghCountElement`, and `soCountElement` have their `hidden` attribute set to `true`, hiding them.
+ */
 issueCount.addEventListener('mouseover', (e) => {
   icmCountElement.removeAttribute('hidden');
   ghCountElement.removeAttribute('hidden');
   soCountElement.removeAttribute('hidden');
 });
 
+/**
+ * Hides the count elements for different issue types (ICM, GitHub, and StackOverflow) when the `issueCount` element is no longer hovered over.
+ * 
+ * This event listener is responsible for setting the `hidden` attribute of the `icmCountElement`, `ghCountElement`, and `soCountElement` to `true` when the `issueCount` element is no longer hovered over. This effectively hides the count elements.
+ */
 issueCount.addEventListener('mouseout', (e) => {
   icmCountElement.setAttribute('hidden', true);
   ghCountElement.setAttribute('hidden', true);

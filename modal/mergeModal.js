@@ -1,7 +1,15 @@
+/**
+ * Merges two CSV files by removing duplicate entries based on the 'ID' field.
+ * The merged data is then saved to the backend.
+ *
+ * @param {Object} Papa - The Papa Parse library for parsing CSV data.
+ * @returns {Promise<void>} - A promise that resolves when the merge operation is complete.
+ */
 const MergeModal = (function() {
   'use strict';
   
   let publicAPIs = {};
+
   publicAPIs.mergeCSV = async function(Papa) {
     const mergeFromCSV = document.getElementById('mergeFromCSV').files[0];
     const mergeToCSV = document.getElementById('mergeToCSV').files[0];
@@ -46,7 +54,12 @@ const MergeModal = (function() {
       redirect: "follow"
     };
     
-    const response = await fetch( 'http://localhost:6550/merge', requestOptions );
+    /**
+     * Sends a fetch request to the '/merge' endpoint and updates the UI with the merge status.
+     * If the request is successful, it displays a loading indicator that updates every second for up to 3 seconds, then displays a 'merged' message.
+     * If the request fails, it displays an error alert.
+     */
+  const response = await fetch( 'http://localhost:6550/merge', requestOptions );
     if ( response.ok ) {
       const mergeStatus = document.getElementById('mergeStatus');
       let message = '';
@@ -65,6 +78,6 @@ const MergeModal = (function() {
     } else {
       alert( 'Error saving data' );
     }
-};
+  };
   return publicAPIs;
 })();

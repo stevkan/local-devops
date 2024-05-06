@@ -1,5 +1,11 @@
 const resetOrderButton = document.getElementById( 'resetOrder' );
 
+/**
+ * Reorders the table rows based on the provided sorting arrays.
+ *
+ * @param {Array} tdSortedArray - The array used to sort the rows by .col-4 value.
+ * @param {Array} selectSortedArray - The array used to sort the rows by .col-1 select value.
+ */
 function reorderTableRows(tdSortedArray, selectSortedArray) {
   const tableBody = table.querySelector('tbody');
   const rows = Array.from(tableBody.querySelectorAll('tr.rowSelector'));
@@ -50,6 +56,13 @@ function reorderTableRows(tdSortedArray, selectSortedArray) {
     .forEach(row => tableBody.appendChild(row));
 }
 
+/**
+ * Compares two strings in an alphanumeric manner.
+ *
+ * @param {string} a - The first string to compare.
+ * @param {string} b - The second string to compare.
+ * @returns {number} - Returns 0 if the strings are equal, 1 if `a` is greater than `b`, and -1 if `a` is less than `b`.
+ */
 const alphanumericCompare = (a, b) => {
   const aA = a.replace(/[^a-zA-Z]/g, "");
   const bA = b.replace(/[^a-zA-Z]/g, "");
@@ -64,6 +77,13 @@ const alphanumericCompare = (a, b) => {
   }
 };
 
+/**
+ * Sorts an array of strings alphanumerically, with special handling for strings starting with 'IcM'.
+ *
+ * @param {string} a - The first string to compare.
+ * @param {string} b - The second string to compare.
+ * @returns {number} - A negative number if `a` should be sorted before `b`, a positive number if `b` should be sorted before `a`, or 0 if they are equal.
+ */
 const alphanumericSort = (a, b) => {
   const reA = /[^a-zA-Z]/g;
   const reN = /[^0-9]/g;
@@ -93,19 +113,25 @@ const alphanumericSort = (a, b) => {
   }
 };
 
+/**
+ * Sets the default order of the table rows by sorting the values in the primary and secondary columns.
+ * 
+ * This function first selects all the elements with the class 'rowSelector .col-4' and 'rowSelector .col-6',
+ * which represent the primary and secondary columns respectively. It then extracts the text content of these
+ * elements and stores them in separate arrays.
+ * 
+ * The arrays are then sorted using the `alphanumericSort` function, which sorts the values in a natural order
+ * (e.g. 'item1', 'item2', 'item10'). Finally, the `reorderTableRows` function is called with the sorted
+ * primary and secondary column values to reorder the table rows accordingly.
+ */
 const setDefaultOrder = () => {
   const primaryCol = document.querySelectorAll('.rowSelector .col-4');
   const primaryColValues = [];
   primaryCol.forEach(val => primaryColValues.push(val.innerText));
 
-  const secondaryCol = document.querySelectorAll('.rowSelector .col-2');
+  const secondaryCol = document.querySelectorAll('.rowSelector .col-6');
   const secondaryColValues = [];
   secondaryCol.forEach(val => secondaryColValues.push(val.innerText));
-
-  // // Use if column has select fields
-  // const secondaryCol = document.querySelectorAll('.rowSelector .col-1 select');
-  // const secondaryCoValues = [];
-  // secondaryCol.forEach(select => secondaryCoValues.push(select.value));
 
   primaryColValues.sort(alphanumericSort);
   secondaryColValues.sort(alphanumericSort);
@@ -113,6 +139,15 @@ const setDefaultOrder = () => {
 };
 
 const loadButton = document.getElementById( 'loadButton' );
+
+/**
+ * Handles the click event of the load button, which opens a file browser and loads the selected CSV file.
+ * 
+ * This function first checks if the `forceDone` parameter is set to `true`, and if so, updates the `SettingsModal.showDone` flag accordingly.
+ * It then calls the `openFileBrowser()` function to open the file browser, and sets up an interval to check the local storage for the selected file path.
+ * Once a file path is found, it calls the `getData()` function to fetch the data from the selected file, and then calls the `openLastFile()` function to open the last opened file.
+ * If there are any errors during the file loading process, appropriate error messages are displayed to the user.
+ */
 loadButton.addEventListener( 'click', async (forceDone) => {
   console.log('FORCE DONE ', SettingsModal.showDone, forceDone.returnValue)
   if (forceDone.returnValue === true) {
@@ -121,7 +156,13 @@ loadButton.addEventListener( 'click', async (forceDone) => {
   console.log('SHOW DONE ', SettingsModal.showDone)
   await openFileBrowser()
     .then( ( res ) => {
-      const interval = setInterval( async () => {
+      /**
+       * This code sets up an interval that checks for a 'filepath' value in localStorage every 100 milliseconds.
+       * If a 'filepath' value is found, it fetches data from the server and processes the response.
+       * If the response is successful, it creates a new File object with the fetched data and calls the `openLastFile()` function.
+       * If the response indicates an error, it displays an appropriate alert message. The interval is cleared once the file data has been processed.
+       */
+const interval = setInterval( async () => {
         const input = localStorage.getItem( 'filepath' );
         if ( input !== null ) {
           const response = await getData();
@@ -150,18 +191,16 @@ loadButton.addEventListener( 'click', async (forceDone) => {
     } );
 } );
 
-// const saveButton = document.querySelector( '#saveButton' );
-// saveButton.addEventListener('click', () => {
-//   setTimeout(async () => {
-//     await loadButton.click();
-//   }, 500);
-// });
-
 const mergeModal = document.getElementById( 'mergeModal' );
 const openImportCsvBtn = document.getElementById( 'openImportCsvBtn' );
 const closeMergeModal = document.getElementById( 'closeMergeModal' );
 const mergeIframeContainer = document.getElementById( 'mergeIframeContainer' );
 
+/**
+ * Opens the merge modal and creates an iframe to display the merge modal content.
+ * The merge modal is displayed when the user clicks the 'openImportCsvBtn' element.
+ * The iframe is added to the 'mergeIframeContainer' element.
+ */
 openImportCsvBtn.addEventListener( 'click', () => {
   mergeModal.style.display = 'flex';
   const iframe = document.createElement( 'iframe' );
@@ -172,6 +211,9 @@ openImportCsvBtn.addEventListener( 'click', () => {
   mergeIframeContainer.appendChild( iframe );
 } );
 
+/**
+ * Closes the merge modal and removes the iframe from the DOM.
+ */
 closeMergeModal.addEventListener( 'click', () => {
   const iframe = document.getElementById( 'mergeModalIframe' );
   mergeModal.style.display = 'none';
@@ -183,6 +225,11 @@ const openSettingsBtn = document.getElementById( 'openSettingsBtn' );
 const closeSettingsModal = document.getElementById( 'closeSettingsModal' );
 const settingsIframeContainer = document.getElementById( 'settingsIframeContainer' );
 
+/**
+ * Adds an event listener to the openSettingsBtn element that displays the settings modal and creates an iframe to load the settingsModal.html file.
+ * When the openSettingsBtn is clicked, the settings modal is displayed with a flex layout, and an iframe element is created and appended to the settingsIframeContainer.
+ * The iframe's src attribute is set to 'settingsModal.html', and its width and height are set to 100% to fill the modal.
+ */
 openSettingsBtn.addEventListener( 'click', () => {
   settingsModal.style.display = 'flex';
   const iframe = document.createElement( 'iframe' );
@@ -193,12 +240,19 @@ openSettingsBtn.addEventListener( 'click', () => {
   settingsIframeContainer.appendChild( iframe );
 } );
 
+/**
+ * Closes the settings modal and removes the iframe element from the DOM.
+ */
 closeSettingsModal.addEventListener( 'click', () => {
   const iframe = document.getElementById( 'settingsModalIframe' );
   settingsModal.style.display = 'none';
   settingsIframeContainer.removeChild( iframe );
 } );
 
+/**
+ * Toggles the "comfy mode" setting for the application, which applies a CSS class to table header and body cells to change their appearance.
+ * The current state of the "comfy mode" setting is stored in localStorage.
+ */
 function toggleComfySetting () {
   isComfy = !isComfy;
   localStorage.setItem( 'comfyMode', isComfy );
@@ -223,6 +277,14 @@ function toggleComfySetting () {
 }
 
 const themes = [ 'lightTheme.css', 'darkTheme.css' ];
+
+/**
+ * Toggles the theme of the application by cycling through the available themes.
+ * The current theme index is stored in localStorage, and a new stylesheet link is
+ * added to the document head to load the next theme.
+ *
+ * @param {HTMLButtonElement} button - The button that triggered the theme toggle.
+ */
 function toggleThemeSetting (button) {
   themeIndex++;
   const nextTheme = themes[ themeIndex - 1 ];
@@ -238,10 +300,14 @@ function toggleThemeSetting (button) {
   if ( themeIndex > 1 ) {
     themeIndex = 0;
   }
-  // console.log('THEME BUTTON ', button);
-  // button.textContent = currentThemeIndex === 0? 'Enable Light Theme' : 'Enable Dark Theme';
 }
 
+/**
+ * Toggles the display state of a row and updates the button text accordingly.
+ *
+ * @param {HTMLButtonElement} button - The button that triggered the toggle.
+ * @param {HTMLTableRowElement} row - The row element to toggle the display of.
+ */
 function toggleDoneSetting(button, row) {
   button.textContent = row.style.display === 'none' ? 'Disable' : 'Enable';
 };
