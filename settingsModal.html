@@ -1,33 +1,36 @@
+<!-- The HTML structure for the settings modal, including controls for enabling comfy mode, switching the theme, and
+toggling the display of 'Done' issues. -->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings</title>
-  <link rel="stylesheet" href="./resources/css/settingsModal.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <script type='text/javascript' src='./modal/settingsModal.js'></script>
-  <!-- <script type='text/javascript' src='./resources/scripts/variables.js'></script> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="./resources/css/settingsModal.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script type='text/javascript' src='./modal/settingsModal.js'></script>
+    <!-- <script type='text/javascript' src='./resources/scripts/variables.js'></script> -->
 </head>
 
 <body id='modalBody'>
-  <div id="iframeInputView_Group1">
-    <div class='iframeBtnContainer'>
-      <span>Comfy mode</span>
-      <button id='comfyButton' type='button' onclick="SettingsModal.toggleComfy()">Enable</button>
+    <div id="iframeInputView_Group1">
+        <div class='iframeBtnContainer'>
+            <span>Comfy mode</span>
+            <button id='comfyButton' type='button' onclick="SettingsModal.toggleComfy()">Enable</button>
+        </div>
+        <div class='iframeBtnContainer'>
+            <span>Set Theme to Light or Dark</span>
+            <button id='themeButton' type='button' onclick="SettingsModal.toggleTheme()">Switch to Dark</button>
+        </div>
     </div>
-    <div class='iframeBtnContainer'>
-      <span>Set Theme to Light or Dark</span>
-      <button id='themeButton' type='button' onclick="SettingsModal.toggleTheme()">Switch to Dark</button>
+    <div id='iframeInputView_Group2'>
+        <div class='iframeBtnContainer'>
+            <span>Hide issues marked as 'Done'</span>
+            <button id='toggleDone' type='button' onclick="SettingsModal.toggleDone()">Disable</button>
+        </div>
     </div>
-  </div>
-  <div id='iframeInputView_Group2'>
-    <div class='iframeBtnContainer'>
-      <span>Hide issues marked as 'Done'</span>
-      <button id='toggleDone' type='button' onclick="SettingsModal.toggleDone()">Disable</button>
-    </div>
-  </div>
 </body>
 
 </html>

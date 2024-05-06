@@ -1,32 +1,39 @@
+<!-- The HTML template for the merge modal, which allows users to select source and destination CSV files, and initiate the
+merge process.
+The modal is displayed within an iframe and interacts with the parent window through the `MergeModal` object.
+The modal includes input fields for selecting the source and destination CSV files, as well as a button to start the
+merge process.
+The merge status is displayed in the `mergeStatus` element.-->
+
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Import CSV</title>
-  <link rel="stylesheet" href="./resources/css/mergeModal.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <script type='text/javascript' src='./modal/mergeModal.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import CSV</title>
+    <link rel="stylesheet" href="./resources/css/mergeModal.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script type='text/javascript' src='./modal/mergeModal.js'></script>
 </head>
 
 <body id='modalBody'>
-  <div id="iframeInputView_Group1">
-    <div class='iframeBtnContainer'>
-      <span>Source File</span>
-      <input type="file" id="mergeFromCSV" accept=".csv">
+    <div id="iframeInputView_Group1">
+        <div class='iframeBtnContainer'>
+            <span>Source File</span>
+            <input type="file" id="mergeFromCSV" accept=".csv">
+        </div>
+        <div class='iframeBtnContainer'>
+            <span>Destination File</span>
+            <input type="file" id="mergeToCSV" accept=".csv">
+        </div>
     </div>
-    <div class='iframeBtnContainer'>
-      <span>Destination File</span>
-      <input type="file" id="mergeToCSV" accept=".csv">
+    <div id='iframeInputView_Group2'>
+        <div class='mergeButtonContainer'>
+            <span>Merge Files</span>
+            <button id='mergeButton' onclick="MergeModal.mergeCSV(Papa)">Run Process...</button>
+            <span id='mergeStatus'></span>
+        </div>
     </div>
-  </div>
-  <div id='iframeInputView_Group2'>
-    <div class='mergeButtonContainer'>
-      <span>Merge Files</span>
-      <button id='mergeButton' onclick="MergeModal.mergeCSV(Papa)">Run Process...</button>
-      <span id='mergeStatus'></span>
-    </div>
-  </div>
 </body>
 
 </html>
