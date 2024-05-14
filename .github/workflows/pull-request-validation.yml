@@ -22,7 +22,7 @@ defaults:
     shell: bash
 
 env:
-  node-version: 18.18
+  NODE-VERSION: 18.18
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ${{ env.node-version }}
+        node-version: [16.X, 18.X, 20.X]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     if: (!(github.event.action == 'closed' && github.event.pull_request.merged != true))
 
