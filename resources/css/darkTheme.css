@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: black !important;
   color: white;
 }
 
@@ -121,7 +121,7 @@ a {
 
 .modal-content {
   background-color: #353333;
-  border: 1px solid #888;
+  border-color: lightgrey;
 }
 
 #closeMergeModal,
@@ -131,4 +131,33 @@ a {
 
 #mergeModalIframe {
   color: white;
+}
+
+#modalBody {
+  color: white;
+  background-color: #585858 !important;
+}
+
+#mergeIframeContainer,
+#settingsIframeContainer {
+  background-color: #585858;
+  color: white;
+}
+
+.iframeBtnContainer {
+  color: white !important;
+}
+
+.context-menu {
+  color: white;
+  background-color: black;
+  border-color: white;
+}
+
+.context-menu:hover {
+  background-color: #883434;
+}
+
+#mergeStatus {
+  color: lightgreen;
 }

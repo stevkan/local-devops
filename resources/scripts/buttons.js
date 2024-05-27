@@ -53,7 +53,9 @@ function reorderTableRows(tdSortedArray, selectSortedArray) {
   // Append the sorted rows to the table body
   Object.values(groupedRows)
     .flatMap(group => group)
-    .forEach(row => tableBody.appendChild(row));
+    .forEach(row => {
+      tableBody.appendChild(row)
+    });
 }
 
 /**
@@ -162,7 +164,7 @@ loadButton.addEventListener( 'click', async (forceDone) => {
        * If the response is successful, it creates a new File object with the fetched data and calls the `openLastFile()` function.
        * If the response indicates an error, it displays an appropriate alert message. The interval is cleared once the file data has been processed.
        */
-const interval = setInterval( async () => {
+      const interval = setInterval( async () => {
         const input = localStorage.getItem( 'filepath' );
         if ( input !== null ) {
           const response = await getData();
@@ -175,7 +177,7 @@ const interval = setInterval( async () => {
             if (response.status === 400) {
               alert( 'The file you selected is not a CSV file.' );
             } else if (response.status === 404) {
-              alert( 'The file you selected does not exist.' );
+              console.error( 'The file you selected does not exist.' );
             } else {
               alert( response.statusText );
             }
@@ -183,7 +185,7 @@ const interval = setInterval( async () => {
             return;
           }
           const data = await response.json();
-          lastOpenedFile = data ? new File( [ data ], 'DevOpsIssues.csv', { type: 'text/csv' } ) : null;
+          lastOpenedFile = data ? new File( [ data ], 'IssuesDb.csv', { type: 'text/csv' } ) : null;
           openLastFile();
           clearInterval( interval );
         }
@@ -209,7 +211,18 @@ openImportCsvBtn.addEventListener( 'click', () => {
   iframe.style.width = '100%';
   iframe.style.height = '100%'; // Adjust the height as needed
   mergeIframeContainer.appendChild( iframe );
+  // const theme = localStorage.getItem( 'theme' );
+  // const link = document.createElement( 'link' );
+  // link.rel = 'stylesheet';
+  // link.type = 'text/css';
+  // link.href = `./resources/css/${ theme }`; // Path to your CSS file
 } );
+
+// mergeIframeContainer.onload = () => {
+//   const mergeButton = window.parent.document.querySelector('#mergeModal #mergeModalIframe').contentDocument.querySelector('#mergeButton');
+//   console.log(mergeButton);
+//   mergeButton.addEventListener('click', MergeModal.mergeCSV());
+// };
 
 /**
  * Closes the merge modal and removes the iframe from the DOM.
@@ -276,31 +289,30 @@ function toggleComfySetting () {
   }
 }
 
-const themes = [ 'lightTheme.css', 'darkTheme.css' ];
-
 /**
  * Toggles the theme of the application by cycling through the available themes.
  * The current theme index is stored in localStorage, and a new stylesheet link is
  * added to the document head to load the next theme.
- *
- * @param {HTMLButtonElement} button - The button that triggered the theme toggle.
  */
-function toggleThemeSetting (button) {
-  themeIndex++;
-  const nextTheme = themes[ themeIndex - 1 ];
-  const currentThemeIndex = themes.findIndex( theme => theme === nextTheme );
-  themes.keys();
-  localStorage.setItem( 'themeIndex', currentThemeIndex );
-  const link = document.createElement( 'link' );
-  link.rel = 'stylesheet';
-  link.type = 'text/css';
-  link.href = `./resources/css/${ nextTheme }`; // Path to your CSS file
-
-  document.head.appendChild( link );
-  if ( themeIndex > 1 ) {
-    themeIndex = 0;
-  }
-}
+// function toggleThemeSetting () {
+//   const head = document.head.children
+//   if (localStorage.getItem('theme') === 'dark') {
+//     for (let h of head) {
+//       if(h.getAttribute('href') === './resources/css/darkTheme.css') {
+//         h.setAttribute('href', './resources/css/lightTheme.css');
+//         localStorage.setItem('theme', 'light');
+//       }
+//     }
+//   }
+//   else if (localStorage.getItem('theme') === 'light') {
+//     for (let h of head) {
+//       if(h.getAttribute('href') === './resources/css/lightTheme.css') {
+//         h.setAttribute('href', './resources/css/darkTheme.css');
+//         localStorage.setItem('theme', 'dark');
+//       }
+//     }
+//   }
+// }
 
 /**
  * Toggles the display state of a row and updates the button text accordingly.

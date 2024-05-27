@@ -7,25 +7,22 @@ localStorage.setItem( 'defaultOrder', `[${ defaultOrder }]` );
 let order = Array.from(localStorage.getItem( 'customOrder' )).flat().filter(item => !isNaN(item))
 let columnIndex = null;
 let isComfy = localStorage.getItem( 'comfyMode' ) !== null ? localStorage.getItem( 'comfyMode' ) : false;
-const theme = localStorage.getItem( 'themeIndex' ) === '1' ? 'darkTheme.css' : 'lightTheme.css';
-localStorage.setItem( 'theme', theme );
-let themeIndex = [ 'lightTheme.css', 'darkTheme.css' ].indexOf( theme );
-localStorage.setItem( 'themeIndex', themeIndex );
 
-/**
- * Provides a public API for accessing the `table` property.
- * @namespace ParentProperties
- * @property {object} table - The table object.
- */
-window.ParentProperties = (function () {
-  'use strict;'
+// const body = document.querySelector('body');
+// const link = document.createElement( 'link' );
+// link.rel = 'stylesheet';
+// link.type = 'text/css';
 
-  const publicAPIs = {
-    table: table
-  };
-
-  return publicAPIs;
-})();
+// localStorage.getItem( 'theme' ) === 'light' ?
+// (
+//   link.href = `./resources/css/lightTheme.css`,
+//   localStorage.setItem( 'theme', 'light')
+// ) :
+// (
+//   link.href = `./resources/css/darkTheme.css`,
+//   localStorage.setItem( 'theme', 'dark')
+// );
+// document.head.appendChild( link );
 
 const reader = new FileReader();
 
@@ -85,16 +82,11 @@ const getData = async () => {
   const myHeaders = new Headers();
   myHeaders.append( "Content-Type", "application/json" );
 
-  const raw = JSON.stringify( {
-    "filePath": localStorage.getItem( 'filepath' )
-  } );
-
   const requestOptions = {
-    method: "POST",
+    method: "GET",
     mode: "cors",
     credentials: 'include',
     headers: myHeaders,
-    body: raw,
     redirect: "follow"
   };
 
@@ -123,10 +115,7 @@ const saveData = async () => {
   const myHeaders = new Headers();
   myHeaders.append( "Content-Type", "application/json" );
 
-  const raw = JSON.stringify( {
-    "filePath": localStorage.getItem( 'filepath' ),
-    data
-  } );
+  const raw = JSON.stringify( { data } );
 
   const requestOptions = {
     method: "POST",
@@ -148,9 +137,82 @@ const saveData = async () => {
   }
 };
 
+const mergeData = async (data) => {
+  // Save merged data to backend
+    const myHeaders = new Headers();
+    myHeaders.append( "Content-Type", "application/json" );
+    
+    const raw = JSON.stringify( { data } );
+    
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+    
+    try {
+      /**
+       * Sends a fetch request to the '/merge' endpoint and updates the UI with the merge status.
+       * If the request is successful, it displays a loading indicator that updates every second for up to 3 seconds, then displays a 'merged' message.
+       * If the request fails, it displays an error alert.
+       */
+      const response = await fetch( 'http://localhost:6550/merge', requestOptions );
+      if ( response.ok ) {
+        console.log('INDEX MERGE DATA ', await response.statusText);
+        return await response.statusText;
+        // const mergeStatus = window.parent.document.querySelector('#mergeModal #mergeModalIframe').contentDocument.querySelector('#mergeStatus');
+        // let message = '';
+        // let mergeCount = 0;
+        // const interval = setInterval(() => {
+        //   if (mergeCount <= 2) {
+        //     message = message + '.';
+        //     mergeStatus.innerHTML = `${message}`;
+        //   }
+        //   if (mergeCount === 3) {
+        //     mergeStatus.innerHTML = `${message}merged`;
+        //     loadButton.click();
+        //     clearInterval(interval);
+        //   }
+        //   mergeCount++;
+        // }, 1000);
+      } else {
+        console.error( 'Error saving data' );
+      }
+    } catch (err) {
+      console.error('Error saving merged data:', err);
+    }
+}
+
+const deleteRow = async (rowId) => {
+  const myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+
+  const raw = JSON.stringify({ rowId });
+  const requestOptions = {
+    method: 'DELETE',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow',
+  };
+
+  try {
+    const response = await fetch('http://localhost:6550/delete', requestOptions);
+    if (response.ok) {
+      // Row deleted successfully, update the table or display a success message
+      console.log('Row deleted successfully');
+    } else {
+      // Handle the error
+      console.error('Error deleting row');
+    }
+  } catch (err) {
+    console.error('Error deleting row:', err);
+  }
+};
+
 window.onload = async () => {
   toggleComfySetting();
-  SettingsModal.onload();
+  // SettingsModal().onload();
   loadButton.click(true);
 };
 
@@ -170,7 +232,7 @@ const soCountElement = document.getElementById('soCount' );
  * Finally, it updates the innerHTML of the icmCountElement, ghCountElement, and soCountElement with the calculated counts.
  */
 table.addEventListener('onRendered', async (e) => {
-  await SettingsModal.toggleDone();
+  await SettingsModal().toggleDone();
 
   let icmCount = 0;
   let ghCount = 0;
@@ -213,3 +275,56 @@ issueCount.addEventListener('mouseout', (e) => {
   ghCountElement.setAttribute('hidden', true);
   soCountElement.setAttribute('hidden', true);
 });
+
+// Get the context menu element
+const contextMenu = document.getElementById('contextMenu');
+
+// Add event listener to the table rows
+table.addEventListener('contextmenu', function (event) {
+  event.preventDefault();
+
+  // Check if the right-clicked element is a table row
+  if (event.target.closest('tr')) {
+    // Show the context menu
+    contextMenu.style.display = 'block';
+    contextMenu.style.left = event.pageX + 'px';
+    contextMenu.style.top = event.pageY + 'px';
+
+    // Store the selected row
+    rowSelected = event.target.closest('tr');
+  }
+});
+
+// Hide the context menu when clicking outside of it
+document.addEventListener('click', function (event) {
+  if (!contextMenu.contains(event.target)) {
+    contextMenu.style.display = 'none';
+  }
+});
+
+// Add event listener to the delete option in the context menu
+document.getElementById('deleteRow').addEventListener('click', function () {
+  if (rowSelected) {
+    const rowId = rowSelected.children[1].innerHTML;
+    deleteRow(rowId);
+    rowSelected.remove();
+    contextMenu.style.display = 'none';
+  }
+});
+
+/**
+ * Provides a public API for accessing the `table` property.
+ * @namespace ParentProperties
+ * @property {object} table - The table object.
+ */
+window.ParentProperties = (function () {
+  'use strict;'
+
+  const publicAPIs = {
+    mergeData: mergeData,
+    Papa: Papa,
+    table: table,
+  };
+
+  return publicAPIs;
+})();

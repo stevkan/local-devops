@@ -191,6 +191,8 @@ a {
   width: 30em;
   height: fit-content;
   height: -moz-fit-content;
+  border-style: inset;
+  border-width: 3px;
 }
 
 #closeMergeModal,
@@ -229,4 +231,27 @@ a {
   display: flex;
   flex-direction: column;
   height: inherit;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  min-width: fit-content;
+  min-width: -moz-fit-content;
+  padding: 6px 8px;
+  z-index: 1;
+  border-style: solid;
+  border-width: thin;
+}
+
+.context-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.context-menu li {
+  cursor: pointer;
+  font-size: 14px;
 }
