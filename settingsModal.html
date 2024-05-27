@@ -9,6 +9,7 @@ toggling the display of 'Done' issues. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
     <link rel="stylesheet" href="./resources/css/settingsModal.css">
+    <link rel="stylesheet" href="./resources/css/lightTheme.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script type='text/javascript' src='./modal/settingsModal.js'></script>
     <!-- <script type='text/javascript' src='./resources/scripts/variables.js'></script> -->
@@ -18,17 +19,17 @@ toggling the display of 'Done' issues. -->
     <div id="iframeInputView_Group1">
         <div class='iframeBtnContainer'>
             <span>Comfy mode</span>
-            <button id='comfyButton' type='button' onclick="SettingsModal.toggleComfy()">Enable</button>
+            <button id='comfyButton' type='button' onclick="SettingsModal().toggleComfy()">Enable</button>
         </div>
         <div class='iframeBtnContainer'>
-            <span>Set Theme to Light or Dark</span>
-            <button id='themeButton' type='button' onclick="SettingsModal.toggleTheme()">Switch to Dark</button>
+            <span>Placeholder</span>
+            <input type="file" id="placeholderCsvBtn" accept=".csv" disabled>
         </div>
     </div>
     <div id='iframeInputView_Group2'>
         <div class='iframeBtnContainer'>
             <span>Hide issues marked as 'Done'</span>
-            <button id='toggleDone' type='button' onclick="SettingsModal.toggleDone()">Disable</button>
+            <button id='toggleDone' type='button' onclick="SettingsModal().toggleDone()">Disable</button>
         </div>
     </div>
 </body>

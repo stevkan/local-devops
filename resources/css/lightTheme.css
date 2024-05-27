@@ -1,5 +1,5 @@
 body {
-  background-color: white;
+  background-color: #585858;
   color: black;
 }
 
@@ -120,15 +120,40 @@ a {
 }
 
 .modal-content {
-  background-color: #353333;
-  border: 1px solid #888;
+  background-color: white;
+  border-color: darkgrey;
 }
 
 #closeMergeModal,
 #closeSettingsModal {
-  color: white;
+  color: black;
 }
 
 #mergeModalIframe {
+  color: black;
+}
+
+/* #modalBody {
+  color: black !important;
+  background-color: #747474 !important;
+} */
+/* 
+#mergeIframeContainer,
+#settingsIframeContainer {
+  background-color: #747474;
   color: white;
+} */
+
+.context-menu {
+  color: black;
+  background-color: white;
+  border-color: black;
+}
+
+.context-menu:hover {
+  background-color: #883434;
+}
+
+#mergeStatus {
+  color: lightgreen;
 }

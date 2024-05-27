@@ -25,28 +25,34 @@ async function filterRows () {
   }
 
   // Loop through table rows
-  const rows = document.querySelectorAll( '#data tbody tr.rowSelector' );
+  const rows = document.querySelectorAll( '#data tbody .rowSelector' );
   rows.forEach( row => {
-    let rowVisible = false;
     const cells = row.querySelectorAll( 'td' );
     cells.forEach( cell => {
+      var rowVisible = null;
       let cellText = '';
-      if ( cell.className === 'state' ) {
+      if ( cell.className.includes('state') ) {
         cellText = cell.children[ 0 ].value.toLowerCase();
       }
       else cellText = cell.textContent.toLowerCase();
-
+      
       const valueWords = value.split(' ');
       const cellTextWords = cellText.split(' ');
-
+      
       // Check if all words in the filter value are present in the cell text
-      rowVisible = valueWords.every(word => cellTextWords.some(cellWord => cellWord.includes(word)));
-
+      // rowVisible = valueWords.every(word => cellTextWords.some(cellWord => cellWord.includes(word)));
+      // const visible = valueWords.some(word => cellText.includes(word));
       // Exit the loop if the row is visible
-      if (rowVisible) return;
+      if (!!valueWords.every(word => cellTextWords.some(cellWord => cellWord.includes(word)))) {
+        console.log(!!valueWords.every(word => cellTextWords.some(cellWord => cellWord.includes(word))))
+        row.setAttribute('style', 'display: table-cell');
+        console.log('ROW VISIBLE 1', rowVisible, row);
+      };
+      // console.log('CELLS 0 ', cells);
+      // Show or hide the row based on whether any cell contains the filter value
+      // row.style.display = rowVisible ? '' : 'none';
+      // console.log('ROW VISIBLE 2', rowVisible, row);
     });
-
-    // Show or hide the row based on whether any cell contains the filter value
-    row.style.display = rowVisible ? '' : 'none';
+  
   } );
 }

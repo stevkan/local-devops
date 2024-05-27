@@ -1,12 +1,9 @@
 #mergeModalIframe {
-  color: white;
   width: 100%;
   height: 100% !important;
 }
 
 #modalBody {
-  color: white;
-  background-color: #525050;
   display: flex;
   flex-direction: column;
   /* margin: 40px; */

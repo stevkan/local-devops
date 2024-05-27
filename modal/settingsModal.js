@@ -2,7 +2,7 @@
  * Provides a settings modal for the application, including functionality to toggle the theme and comfy mode.
  * The modal also allows the user to show or hide "Done" tasks in the main table.
  */
-const SettingsModal = (function() {
+const SettingsModal = function() {
   'use strict';
   
   let publicAPIs = {
@@ -14,11 +14,7 @@ const SettingsModal = (function() {
    * Initializes the settings modal by setting up the table reference and toggling the theme button.
    * This function is called when the settings modal is loaded.
    */
-  publicAPIs.onload = () => {
-    publicAPIs.table = window.parent.ParentProperties.table;
-    const themeButton = document.querySelector('#themeButton');
-    window.parent.toggleThemeSetting(themeButton);
-  }
+  publicAPIs.onload = () => {}
 
   /**
    * Toggles the "comfy" setting in the parent window.
@@ -30,13 +26,46 @@ const SettingsModal = (function() {
       window.parent.toggleComfySetting(); // Call a function in the parent window
     })());
   };
+
+  // publicAPIs.toggleLocalTheme = () => {
+  //     console.log('Theme not yet loaded, loading now...');
+    
+  //     const modalDocument = window.parent.document.querySelector('#settingsModal #settingsModalIframe').contentDocument;
+  //     console.log('DOCUMENT ', modalDocument);
+  //     const link = modalDocument.createElement( 'link' );
+  //     link.rel = 'stylesheet';
+  //     link.type = 'text/css';
   
-  /**
-   * Toggles the theme setting in the parent window.
-   */
-  publicAPIs.toggleTheme = () => {
-    window.parent.toggleThemeSetting(); // Call a function in the parent window
-  };
+  //     localStorage.getItem( 'theme' ) === 'dark' ?
+  //     (
+  //       link.href = `./resources/css/lightTheme.css`
+  //       // localStorage.setItem( 'theme', 'dark')
+  //     ) :
+  //     (
+  //       link.href = `./resources/css/darkTheme.css`
+  //       // localStorage.setItem( 'theme', 'light')
+  //     );
+  //     modalDocument.head.appendChild( link );
+  //   // }
+  // }
+  
+  // /**
+  //  * Toggles the theme setting in the parent window.
+  //  */
+  // publicAPIs.toggleTheme = () => {
+  //   // const head = document.head.children
+  //   // for (let h of head) {
+  //   //   if(h.getAttribute('href') === './resources/css/darkTheme.css') {
+  //   //     h.setAttribute('href', './resources/css/lightTheme.css');
+  //   //   }
+  //   //   if(h.getAttribute('href') === './resources/css/lightTheme.css') {
+  //   //     h.setAttribute('href', './resources/css/darkTheme.css');
+  //   //   }
+  //   // }
+    
+  //   publicAPIs.toggleLocalTheme();
+  //   window.parent.toggleThemeSetting(); // Call a function in the parent window
+  // };
 
   // publicAPIs.onShowDoneChange = () => {
     
@@ -73,4 +102,4 @@ const SettingsModal = (function() {
   };
 
   return publicAPIs;
-})();
+};
